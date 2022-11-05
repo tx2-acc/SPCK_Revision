@@ -142,6 +142,7 @@ body {
 }
 
 #content .elemContainer .listContainer .itemContainer .leftList {
+    position: relative; 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -156,8 +157,8 @@ body {
 
 #content .elemContainer .listContainer .itemContainer .leftList .listHead {
     position: absolute;
-    top: 700px;
-    left: 440px;
+    top: -25px;
+    left: 150px;
     font-size: 40px;
     font-weight: 700;
     background-color: white;
@@ -167,12 +168,13 @@ body {
 
 
 #content .elemContainer .listContainer .itemContainer .rightList {
+    position: relative;
     display: flex; 
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     max-width: 500px;
+    height: 700px;
     background-color: #ececec;
 } 
 
@@ -181,7 +183,7 @@ body {
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 75%;
+    top: -20px;
     width: 300px;
     height: 50px;
     background-color: black
@@ -192,6 +194,45 @@ body {
     color: white;
 }
 
+
+#content .elemContainer .article {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#content .elemContainer .article span { 
+    font-weight: 700;
+    margin: 20px;
+    font-size: 40px;
+}
+
+#content .elemContainer .article .details {
+    display: flex;
+    gap: 50px;
+}
+
+#content .elemContainer .article .details .description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+#content .elemContainer .article .details img {
+    width: 50%;
+    height: 50%;
+}
+
+#content .elemContainer .article .details .description span {
+    margin: 5px;
+    font-size: 35px;
+}
+
+#content .elemContainer .article .details .description p {
+    font-size: 30px;
+    line-height: 40px;
+}
 
 
 /*           Footer            */

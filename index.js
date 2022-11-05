@@ -9,7 +9,7 @@ let categoriesMain = {
     ctgrImg: "./ImgContainer/main-resized.jpg",
     ctgrDesc: "Main",
     ctgrClass: "ctgr-main",
-    ctgrURL: ""
+    ctgrURL: "",
 };
 
 let categoriesSide = {
@@ -107,14 +107,16 @@ logoElem.addEventListener('mouseover', styling = () => {
     logoElem.style.cursor = "pointer";
 });
 logoElem.addEventListener('click', redirect = () => {
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
 });
 
 // Utilities 
 const listElem = document.querySelectorAll("li.homepage, li.mainDish, li.sideDish");
 listElem.forEach((Elem) => {
     Elem.addEventListener("click", test = () => {
-        window.location.href = "index.html";
+        let pageURL = "PageContainer/Main_1.html";
+        let pageURL2 = "./index.html";
+        window.location.replace(pageURL2);
     });
     Elem.addEventListener("mouseover", test = () => {
         Elem.style.cursor = "pointer";
@@ -168,6 +170,168 @@ getListCtgr.forEach(display = (item) => {
 });
 
 
+// List of Foods 
+const mainFoods = {
+    Main_1: {
+        img: "./ImgContainer/Main_1.jpg",
+        desc: "Instant Pot Potato Salad",  
+        URLs: "./PageContainer/Main_1.html",
+    },
+
+    Main_2: {
+        img: "./ImgContainer/Main_2.jpg",
+        desc: "Instant Pot Ginger Carrot Soup",
+        URLs: "./PageContainer/Main_2.html",
+    },
+
+    Main_3: {
+        img: "./ImgContainer/Main_3.jpg",
+        desc: "Instant Pot Broccoli",
+        URLs: "./PageContainer/Main_3.html",
+    },
+
+    Main_4: {
+        img: "./ImgContainer/Main_4.jpg",
+        desc: "Instant Pot Country Style Pork Ribs",
+        URLs: "./PageContainer/Main_4.html",
+    },
+
+    Main_5: {
+        img: "./ImgContainer/Main_5.jpg",
+        desc: "Instant Pot Asparagus",
+        URLs: "./PageContainer/Main_5.html",
+    },
+
+    Main_6: {
+        img: "./ImgContainer/Main_6.jpg",
+        desc: "Instant Pot Chicken Stew",
+        URLs: "./PageContainer/Main_6.html",
+    },
+};
+
+
+const leftList = document.querySelector("div.leftList");
+const renderListL = () => {
+    for(let x = 0; x < 6; ++x) {
+        const assignAttr = Object.values(mainFoods);
+        const ELEM = document.createElement("div");
+        ELEM.style.position = "relative";
+        ELEM.style.width = "200px";
+        ELEM.style.height = "230px";
+        ELEM.style.transition = "transform 1s";
+        ELEM.style.margin = "5px";
+    
+        const elemImg = document.createElement("img");
+        elemImg.src = assignAttr[x].img;
+        elemImg.style.width = "200px";
+        elemImg.style.height = "150px";
+        ELEM.appendChild(elemImg);
+    
+        const elemSpan = document.createElement("span");
+        elemSpan.innerHTML = assignAttr[x].desc;
+        elemSpan.style.fontSize = "25px";
+        elemSpan.style.color = "black";
+        ELEM.appendChild(elemSpan);
+        leftList.appendChild(ELEM);  
+
+        const elemAnchor = document.createElement("a");
+        elemAnchor.style.display = "block";
+        elemAnchor.style.position = "absolute";
+        elemAnchor.style.top = "0";
+        elemAnchor.style.width = "100%";
+        elemAnchor.style.height = "100%";
+        elemAnchor.href = assignAttr[x].URLs;
+        ELEM.appendChild(elemAnchor);
+
+        ELEM.addEventListener('mouseover', style = () => {
+            ELEM.style.cursor = "pointer";
+            ELEM.style.color = "grey";
+            ELEM.style.textDecoration = "none";
+        });
+        ELEM.addEventListener('mouseout', style = () =>{
+            ELEM.style.color = "white";
+            ELEM.style.textDecoration = "none";
+        });
+    };
+};
+renderListL();
+
+
+const sideFoods = {
+    side_1: {
+        img: "./ImgContainer/Side_1.jpg",
+        desc: "Oat Flour Pancakes",
+        URLs: "./PageContainer/Side_1.html",
+    },
+        
+    side_2: {
+        img: "./ImgContainer/Side_2.jpg",
+        desc: "Oat Flour Cookies",
+        URLs: "./PageContainer/Side_2.html",
+    },
+
+    side_3: {
+        img: "./ImgContainer/Side_3.jpg",
+        desc: "Oat Flour Waffles",
+        URLs: "./PageContainer/Side_3.html",
+    },
+
+    side_4: {
+        img: "./ImgContainer/Side_4.jpg",
+        desc: "Gluten Free Oat Bread",
+        URLs: "./PageContainer/Side_4.html",
+    },
+};
+
+
+const rightList = document.querySelector("div.rightList");
+const renderListR = () => {
+    for(let y = 0; y < 4; y++) {
+        const assignAttr = Object.values(sideFoods);
+        const ELEM = document.createElement("div");
+        ELEM.style.position = "relative";
+        ELEM.style.width = "200px";
+        ELEM.style.height = "200px";
+        ELEM.style.transition = "transform 1s";
+        ELEM.style.margin = "10px";
+    
+        const elemImg = document.createElement("img");
+        elemImg.src = assignAttr[y].img;
+        elemImg.style.width = "200px";
+        elemImg.style.height = "150px";
+        ELEM.appendChild(elemImg);
+    
+        const elemSpan = document.createElement("span");
+        elemSpan.innerHTML = assignAttr[y].desc;
+        elemSpan.style.fontSize = "25px";
+        elemSpan.style.color = "black";
+        ELEM.appendChild(elemSpan);
+    
+        const elemAnchor = document.createElement("a");
+        elemAnchor.style.display = "block";
+        elemAnchor.style.position = "absolute";
+        elemAnchor.style.top = "0";
+        elemAnchor.style.width = "100%";
+        elemAnchor.style.height = "100%";
+        elemAnchor.href = assignAttr[y].URLs;
+        ELEM.appendChild(elemAnchor);
+
+        rightList.appendChild(ELEM);  
+        
+        ELEM.addEventListener('mouseover', style = () => {
+            ELEM.style.cursor = "pointer";
+            ELEM.style.color = "grey";
+            ELEM.style.textDecoration = "none";
+        });
+        ELEM.addEventListener('mouseout', style = () =>{
+            ELEM.style.color = "white";
+            ELEM.style.textDecoration = "none";
+        });
+    };    
+};
+renderListR();
+
+
 
 // Footer 
 let leftInfo = {
@@ -211,76 +375,3 @@ getFLeft.forEach(display = (item) => {
         });
     };
 });
-
-const leftList = document.querySelector("div.leftList");
-const renderListL = () => {
-    for(let x = 0; x < 9; ++x) {
-        const ELEM = document.createElement("div");
-        ELEM.style.width = "180px";
-        ELEM.style.height = "auto";
-        ELEM.style.transition = "transform 1s";
-        ELEM.style.margin = "10px";
-    
-        const elemImg = document.createElement("img");
-        elemImg.src = "./ImgContainer/PLACEHOLDER.jpg"
-        elemImg.style.width = "100%";
-        elemImg.style.height = "180px";
-        ELEM.appendChild(elemImg);
-    
-        const elemSpan = document.createElement("span");
-        elemSpan.innerHTML = "PLACEHOLDER";
-        elemSpan.style.fontSize = "25px";
-        elemSpan.style.color = "black";
-        ELEM.appendChild(elemSpan);
-        leftList.appendChild(ELEM);  
-        
-        ELEM.addEventListener('mouseover', style = () => {
-            ELEM.style.cursor = "pointer";
-            ELEM.style.color = "grey";
-            ELEM.style.textDecoration = "underline";
-        });
-        ELEM.addEventListener('mouseout', style = () =>{
-            ELEM.style.color = "white";
-            ELEM.style.textDecoration = "none";
-        });
-    };
-};
-renderListL();
-
-
-const rightList = document.querySelector("div.rightList");
-const renderListR = () => {
-    for(let y = 0; y < 6; y++) {
-        const ELEM = document.createElement("div");
-        ELEM.style.width = "150px";
-        ELEM.style.height = "auto";
-        ELEM.style.transition = "transform 1s";
-        ELEM.style.margin = "10px";
-    
-        const elemImg = document.createElement("img");
-        elemImg.src = "./ImgContainer/PLACEHOLDER.jpg"
-        elemImg.style.width = "150px";
-        elemImg.style.height = "150px";
-        ELEM.appendChild(elemImg);
-    
-        const elemSpan = document.createElement("span");
-        elemSpan.innerHTML = "PLACEHOLDER";
-        elemSpan.style.fontSize = "25px";
-        elemSpan.style.color = "black";
-        ELEM.appendChild(elemSpan);
-    
-    
-        rightList.appendChild(ELEM);  
-        
-        ELEM.addEventListener('mouseover', style = () => {
-            ELEM.style.cursor = "pointer";
-            ELEM.style.color = "grey";
-            ELEM.style.textDecoration = "underline";
-        });
-        ELEM.addEventListener('mouseout', style = () =>{
-            ELEM.style.color = "white";
-            ELEM.style.textDecoration = "none";
-        });
-    };    
-};
-renderListR();
