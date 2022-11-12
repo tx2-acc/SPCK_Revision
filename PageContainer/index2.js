@@ -65,7 +65,7 @@ logoElem.addEventListener('mouseover', styling = () => {
     logoElem.style.cursor = "pointer";
 });
 logoElem.addEventListener('click', redirect = () => {
-    window.location.href = "../index.html";
+    window.location.href = "../main.html";
 });
 
 // Utilities 
@@ -73,7 +73,7 @@ const listElem = document.querySelectorAll("li.homepage, li.mainDish, li.sideDis
 listElem.forEach((Elem) => {
     Elem.addEventListener("click", test = () => {
         let pageURL = "Main_1.html";
-        let pageURL2 = "../index.html";
+        let pageURL2 = "../main.html";
         window.location.replace(pageURL2);
     });
     Elem.addEventListener("mouseover", test = () => {
