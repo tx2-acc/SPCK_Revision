@@ -42,17 +42,6 @@ console.log(getListCtgr);
 
 // Header -> Navbar
 
-// Example 
-const Navbar = document.createElement("div");
-Navbar.classList.add("navbar");
-renderNav = () => {
-    Navbar.style.display = "flex";
-    Navbar.style.flexDirection = "space-between";
-    Navbar.style.backgroundColor = "#57c7de";
-    Navbar.style.width = "100%";
-    Navbar.style.height = "75px";   
-};
-
 // Specify Header 
 const headerSection = document.getElementById("section#header");
 
@@ -359,30 +348,33 @@ localStorage.setItem("FooterLeft", JSON.stringify(footerLeft));
 let getFLeft = JSON.parse(localStorage.getItem("FooterLeft"));
 console.log(getFLeft);
 
-const leftSide = document.querySelector("div.left");
-getFLeft.forEach(display = (item) => {
-    elemClsList = ["privacy-policy", "community-guidelines", "about"];
-    for(let x = 1; x <= 3; x++) {
-        const ELEM = document.createElement("div");
-        ELEM.classList.add(`${elemClsList[x - 1]}`);
-        ELEM.style.width = "auto";
-        ELEM.style.height = "auto";
-        ELEM.style.transition = "transform 1s";
-        const elemDesc = document.createElement("span");
-        let getDesc = eval("item.Desc_" + x);
-        elemDesc.innerHTML = getDesc;
-        ELEM.appendChild(elemDesc);
-        leftSide.appendChild(ELEM);  
-        console.log(getDesc);
-        
-        ELEM.addEventListener('mouseover', style = () => {
-            ELEM.style.cursor = "pointer";
-            ELEM.style.color = "grey";
-            ELEM.style.textDecoration = "underline";
-        });
-        ELEM.addEventListener('mouseout', style = () =>{
-            ELEM.style.color = "white";
-            ELEM.style.textDecoration = "none";
-        });
-    };
-});
+function renderFooter() {
+    const leftSide = document.querySelector("div.left");
+    getFLeft.forEach(display = (item) => {
+        elemClsList = ["privacy-policy", "community-guidelines", "about"];
+        for(let x = 1; x <= 3; x++) {
+            const ELEM = document.createElement("div");
+            ELEM.classList.add(`${elemClsList[x - 1]}`);
+            ELEM.style.width = "auto";
+            ELEM.style.height = "auto";
+            const elemDesc = document.createElement("span");
+            let getDesc = eval("item.Desc_" + x);
+            elemDesc.innerHTML = getDesc;
+            ELEM.appendChild(elemDesc);
+            leftSide.appendChild(ELEM);  
+            console.log(getDesc);
+            
+            ELEM.addEventListener('mouseover', style = () => {
+                ELEM.style.cursor = "pointer";
+                ELEM.style.color = "grey";
+                ELEM.style.textDecoration = "underline";
+            });
+            ELEM.addEventListener('mouseout', style = () =>{
+                ELEM.style.color = "white";
+                ELEM.style.textDecoration = "none";
+            });
+        };
+    });  
+};
+
+renderFooter();

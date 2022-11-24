@@ -70,7 +70,7 @@ listElem.forEach((Elem) => {
 
 /*          Sorter           */
 /* List of Foods */
-const mainFoods = {
+let mainFoods = {
     Main_1: {
         img: "../ImgContainer/Main_1.jpg",
         desc: "Instant Pot Potato Salad",  
@@ -108,7 +108,7 @@ const mainFoods = {
     },
 };
 
-const sideFoods = {
+let sideFoods = {
     side_1: {
         img: "../ImgContainer/Side_1.jpg",
         desc: "Oat Flour Pancakes",
@@ -136,35 +136,49 @@ const sideFoods = {
     side_5: {
         img: "../ImgContainer/Side_5.jpg",
         desc: "Cranberry Walnut Chicken Salad",
-        URLs: "",
+        URLs: "../PageContainer/Side_5.html",
     },
 
     side_6: {
         img: "../ImgContainer/Side_6.jpg",
         desc: "Spinach Strawberry Walnut Salad",
-        URLs: "",
+        URLs: "../PageContainer/Side_6.html",
     },
 
     side_7: {
         img: "../ImgContainer/Side_7.jpg",
         desc: "Vegetarian Cassoulet",
-        URLs: "",
+        URLs: "../PageContainer/Side_7.html",
     },
 
     side_8: {
         img: "../ImgContainer/Side_8.jpg",
         desc: "Mediterranean Rice",
-        URLs: "",
+        URLs: "../PageContainer/Side_8.html",
     },
 };
 
-let getMainLen = Object.keys(mainFoods).length;
-let getSideLen = Object.keys(sideFoods).length;
+function RNRDefault() {
+    localStorage.removeItem("mainList");
+    localStorage.removeItem("sideList");
+
+    localStorage.setItem("mainList", JSON.stringify(mainFoods));
+    let mainLS = localStorage.getItem("mainList");
+    mainLS = JSON.parse(mainLS);
+
+    localStorage.setItem("sideList", JSON.stringify(sideFoods));
+    let sideLS = localStorage.getItem("sideList");
+    sideLS = JSON.parse(sideLS);    
+};
+//RNRDefault();
 
 const itemContainer = document.querySelector("div.itemContainer");
 const renderMain = () => {
+    let getMain = localStorage.getItem("mainList");
+    getMainLS = JSON.parse(getMain);
+    let getMainLen = Object.keys(getMainLS).length;
     for(let x = 0; x < getMainLen; ++x) {
-        const assignAttr = Object.values(mainFoods);
+        const assignAttr = Object.values(getMainLS);
         const ELEM = document.createElement("div");
         ELEM.classList.add("main");
         ELEM.style.position = "relative";
@@ -177,9 +191,11 @@ const renderMain = () => {
         ELEM.style.margin = "5px";
     
         const elemImg = document.createElement("img");
-        elemImg.src = assignAttr[x].img;
         elemImg.style.width = "200px";
-        elemImg.style.height = "180px";
+        elemImg.style.height = "200px";
+        elemImg.style.borderBottom = "1px solid black";
+        elemImg.src = assignAttr[x].img;
+        elemImg.alt = "NONE";
         ELEM.appendChild(elemImg);
     
         const elemSpan = document.createElement("span");
@@ -213,20 +229,28 @@ const renderMain = () => {
 renderMain();
 
 const renderSide = () => {
+    let getSide = localStorage.getItem("sideList");
+    getSideLS = JSON.parse(getSide);
+    let getSideLen = Object.keys(getSideLS).length;
     for(let y = 0; y < getSideLen; y++) {
-        const assignAttr = Object.values(sideFoods);
+        const assignAttr = Object.values(getSideLS);
         const ELEM = document.createElement("div");
         ELEM.classList.add("side")
         ELEM.style.position = "relative";
+        ELEM.style.display = "flex";
+        ELEM.style.flexDirection = "column";
+        ELEM.style.alignItems = "center";
         ELEM.style.width = "200px";
         ELEM.style.height = "280px";
         ELEM.style.border = "1px solid black";
         ELEM.style.margin = "5px";
     
         const elemImg = document.createElement("img");
-        elemImg.src = assignAttr[y].img;
         elemImg.style.width = "200px";
         elemImg.style.height = "200px";
+        elemImg.style.borderBottom = "1px solid black";
+        elemImg.src = assignAttr[y].img;
+        elemImg.alt = "NONE";
         ELEM.appendChild(elemImg);
     
         const elemSpan = document.createElement("span");
@@ -259,7 +283,6 @@ const renderSide = () => {
     };    
 };
 renderSide();
-
 
 
 const getSorter = document.querySelectorAll("ul#sortType > li");
@@ -302,6 +325,192 @@ const sorterFunc = () => {
     });
 };
 sorterFunc();
+
+
+function addFunc() {
+    const addBtn = document.getElementById("addItem");
+    addBtn.addEventListener("mouseover", execFunc = () => {
+        isMouseOver = 1
+        addBtn.style.backgroundColor = "grey";
+    });
+    addBtn.addEventListener("mouseout", execFunc = () => {
+        isMouseOver = 1
+        addBtn.style.backgroundColor = "whitesmoke";
+    });
+
+    let isPresent = 0;
+    addBtn.addEventListener("click", execFunc = () => {
+        const getContainer = document.querySelector("div.formContainer");
+        if(isPresent == 0) {
+            let form = document.createElement("form");
+            form.classList.add("addedForm");
+            {
+                form.style.position = "absolute";
+                form.style.top = "280px";
+                form.style.right = "50px";
+                form.style.display = "flex";
+                form.style.flexDirection = "column";
+                form.style.alignItems = "center";
+                form.style.border = "2px solid black";
+                form.style.borderRadius = "10px";
+                form.style.backgroundColor = "white";
+                form.style.width = "400px";
+                form.style.height = "450px";
+                form.style.zIndex = "1";
+                getContainer.appendChild(form);
+                
+                {
+                    let inputField1 = document.createElement("input");
+                    inputField1.setAttribute("id", "img-urls");
+                    inputField1.setAttribute("type", "text");
+                    inputField1.setAttribute("placeholder", "Image URLs...");
+                    {
+                        inputField1.style.fontSize = "20px";
+                        inputField1.style.width = "80%";
+                        inputField1.style.height = "20px";
+                        inputField1.style.padding = "10px";
+                        inputField1.style.margin = "40px 0 20px";
+                        inputField1.style.border = "2px solid black";
+                        inputField1.style.borderRadius = "10px";         
+                    }
+                    form.appendChild(inputField1);
+                };
+
+                {
+                    let inputField2 = document.createElement("input");
+                    inputField2.setAttribute("id", "item-name");
+                    inputField2.setAttribute("type", "text");
+                    inputField2.setAttribute("placeholder", "Name...");
+                    {
+                        inputField2.style.fontSize = "20px";
+                        inputField2.style.width = "80%";
+                        inputField2.style.height = "25px";
+                        inputField2.style.padding = "10px";
+                        inputField2.style.margin = "10px 0";
+                        inputField2.style.border = "2px solid black";
+                        inputField2.style.borderRadius = "10px";         
+                    }
+                    form.appendChild(inputField2);
+                };
+
+                {
+                    let inputField3 = document.createElement("textarea");
+                    inputField3.setAttribute("id", "item-desc");
+                    inputField3.setAttribute("rows", "8");
+                    inputField3.setAttribute("cols", "30");
+                    inputField3.setAttribute("placeholder", "Description...");
+                    {
+                        inputField3.style.fontSize = "20px";
+                        inputField3.style.padding = "10px";
+                        inputField3.style.margin = "10px 0";     
+                    }
+                    form.appendChild(inputField3);
+                };
+
+                {
+                    let inputField4 = document.createElement("input");
+                    inputField4.setAttribute("id", "item-type");
+                    inputField4.setAttribute("type", "text");
+                    inputField4.setAttribute("placeholder", "Type...");
+                    {
+                        inputField4.style.fontSize = "20px";
+                        inputField4.style.width = "40%";
+                        inputField4.style.height = "25px";
+                        inputField4.style.padding = "10px";
+                        inputField4.style.margin = "10px 0";
+                        inputField4.style.border = "2px solid black";
+                        inputField4.style.borderRadius = "10px";         
+                    }
+                    form.appendChild(inputField4);
+                };
+
+                {
+                    let submitBtn = document.createElement("div");
+                    let btnText = document.createElement("span");
+                    btnText.textContent = "Submit";
+                    {
+                        btnText.style.fontSize = "30px";
+                    };
+                    {
+                        submitBtn.style.display = "flex";
+                        submitBtn.style.justifyContent = "center";
+                        submitBtn.style.alignItems = "center";
+                        submitBtn.style.width = "30%";
+                        submitBtn.style.height = "25px";
+                        submitBtn.style.padding = "10px";
+                        submitBtn.style.margin = "10px 0";
+                        submitBtn.style.border = "2px solid black";
+                        submitBtn.style.borderRadius = "10px";       
+                        submitBtn.style.backgroundColor = "whitesmoke"; 
+
+                        submitBtn.addEventListener("mouseover", execFunc = () =>{
+                            submitBtn.style.cursor = "pointer";
+                        });
+                        submitBtn.addEventListener("click", execFunc = () => {
+                            let getImg = document.getElementById("img-urls").value;
+                            let getName = document.getElementById("item-name").value;
+                            let getDesc = document.getElementById("item-desc").value;
+                            let getType = document.getElementById("item-type").value;
+                            let finalizeType = getType.toUpperCase();
+                            function TEST() {
+                                if(finalizeType.includes("MAIN")) {
+                                    let getItemList = document.querySelector("div.itemContainer");
+                                    let getPresent = document.querySelectorAll("div.itemContainer > div.main");
+                                    getPresent.forEach((toRemove) => {
+                                        getItemList.removeChild(toRemove);
+                                    });
+                                    let getMainLen = Object.keys(mainFoods).length;
+                                    let itemAttr = {img: getImg, desc: getName, URLs: "#"};
+                                    mainFoods["Main_" + (getMainLen + 1)] = itemAttr;
+                                    let mainList = localStorage.setItem("mainList", JSON.stringify(mainFoods));
+                                    //let sideList = localStorage.setItem("sideList", JSON.stringify(sideFoods));
+                                    let mainListLS = localStorage.getItem("mainList");
+                                    //let sideListLS = localStorage.getItem("sideList");
+                                    mainListLS = JSON.parse(mainListLS);
+                                   //sideListLS = JSON.parse(sideListLS);
+                                    renderMain();
+                                }
+                                else if(finalizeType.toUpperCase().includes("SIDE")) {
+                                    let getItemList = document.querySelector("div.itemContainer");
+                                    let getPresent = document.querySelectorAll("div.itemContainer > div.side");
+                                    getPresent.forEach((toRemove) => {
+                                        getItemList.removeChild(toRemove);
+                                    });
+                                    let getSideLen = Object.keys(sideFoods).length;
+                                    let itemAttr = {img: getImg, desc: getName, URLs: "#"};
+                                    sideFoods["Side_" + (getSideLen + 1)] = itemAttr;
+                                    //let mainList = localStorage.setItem("mainList", JSON.stringify(mainFoods));
+                                    let sideList = localStorage.setItem("sideList", JSON.stringify(sideFoods));
+                                    //let mainListLS = localStorage.getItem("mainList");
+                                    let sideListLS = localStorage.getItem("sideList");
+                                    //mainListLS = JSON.parse(mainListLS);
+                                    sideListLS = JSON.parse(sideListLS);
+                                    renderSide();
+                                }
+
+                                else {
+                                    window.alert("Invalid");
+                                };
+                            };
+                            TEST();
+                        });
+                    };
+                    submitBtn.appendChild(btnText);
+                    form.appendChild(submitBtn);
+                };
+            };
+            isPresent = 1;
+        }
+        else if(isPresent != 0) {
+            let toRemove = document.querySelector("form.addedForm");
+            toRemove.remove();
+            isPresent = 0;
+        };
+    });  
+};
+addFunc();
+
+
 
 
 
